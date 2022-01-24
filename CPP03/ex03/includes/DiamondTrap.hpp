@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 22:05:58 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/24 16:04:39 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class DiamondTrap : public ScavTrap, public FragTrap
 
 	public:
 		DiamondTrap(void);
-		DiamondTrap(DiamondTrap const &scavtrap);
+		DiamondTrap(DiamondTrap const &diamondtrap);
 		DiamondTrap(string const &name);
 
 		DiamondTrap	&operator=(DiamondTrap const &diamondtrap);

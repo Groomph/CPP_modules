@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:52:46 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/24 18:48:11 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ FragTrap	&FragTrap::operator=(FragTrap const &fragtrap)
 {
 	if (this != &fragtrap)
 	{
-		_name = fragtrap._name;
-		_hitPoints = fragtrap._hitPoints;
-		_energyPoints = fragtrap._energyPoints;
-		_attackDamages = fragtrap._attackDamages;
+		ClapTrap::operator=(fragtrap);
 	}
 	return (*this);
 }

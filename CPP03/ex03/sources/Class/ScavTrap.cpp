@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:59:40 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/24 18:47:42 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ ScavTrap::ScavTrap() :  ClapTrap("ScavTrap")
 {
 	_hitPoints = 100;
 	_energyPoints = 50;
+	_energyPointsSave = 50;
 	_attackDamages = 20;
 	display_name();
 	cout << "default constructor called" << endl;
@@ -59,10 +60,7 @@ ScavTrap	&ScavTrap::operator=(ScavTrap const &scavtrap)
 {
 	if (this != &scavtrap)
 	{
-		_name = scavtrap._name;
-		_hitPoints = scavtrap._hitPoints;
-		_energyPoints = scavtrap._energyPoints;
-		_attackDamages = scavtrap._attackDamages;
+		ClapTrap::operator=(scavtrap);
 	}
 	return (*this);
 }

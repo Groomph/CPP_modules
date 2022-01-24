@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 22:20:43 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/24 19:09:22 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,34 +32,28 @@ void	DiamondTrap::display_name() const
 /*************   PUBLIC   *************/ 
 
 DiamondTrap::DiamondTrap() : ClapTrap("Shiny_clap_name"),
-				ScavTrap(),
-				FragTrap(),
 				_name("Shiny")
 {
 	_hitPoints = FragTrap::_hitPoints;
-	_energyPoints = ScavTrap::_energyPoints;
+	_energyPoints = ScavTrap::_energyPointsSave;
 	_attackDamages = FragTrap::_attackDamages;
 	display_name();
 	cout << "default constructor called" << endl;
 }
 
 DiamondTrap::DiamondTrap(string const &name) : ClapTrap(name + "_clap_name"),
-						ScavTrap(),
-						FragTrap(),
 						_name(name)
 {
 	_hitPoints = FragTrap::_hitPoints;
-	_energyPoints = ScavTrap::_energyPoints;
+	_energyPoints = ScavTrap::_energyPointsSave;
 	_attackDamages = FragTrap::_attackDamages;
 	display_name();
 	cout << "name constructor called" << endl;
 }
 
-DiamondTrap::DiamondTrap(DiamondTrap const &diamond) : ClapTrap(diamond),
-							ScavTrap(),
-							FragTrap(),
-							_name(diamond._name)
+DiamondTrap::DiamondTrap(DiamondTrap const &diamond)
 {
+	*this = diamond;
 	display_name();
 	cout << "copy constructor called" << endl;
 }
@@ -68,12 +62,14 @@ DiamondTrap	&DiamondTrap::operator=(DiamondTrap const &diamond)
 {
 	if (this != &diamond)
 	{
-		ClapTrap::_name = diamond.ClapTrap::_name;
+//		ClapTrap::operator=(diamond);
 		_name = diamond._name;
+		ClapTrap::_name = diamond.ClapTrap::_name;
 		_hitPoints = diamond._hitPoints;
-		_energyPoints = diamond._energyPoints;
+		_energyPoints = diamond._energyPointsSave;
 		_attackDamages = diamond._attackDamages;
 	}
+	display(cout);
 	return (*this);
 }
 

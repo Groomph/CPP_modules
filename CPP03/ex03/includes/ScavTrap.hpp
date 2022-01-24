@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 21:36:08 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/24 18:39:59 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ using	std::ostream;
 
 class ScavTrap : public virtual ClapTrap
 {
+	protected:
+		int	_energyPointsSave;
+
 	private:
 		void	display_name() const;
+
 	public:
 		ScavTrap(void);
 		ScavTrap(ScavTrap const &scavtrap);

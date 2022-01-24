@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:24:18 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 22:23:56 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/24 19:08:39 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	main()
 	bbbb.beRepaired(3);
 	bbbb.whoAmI();
 	cout << bbbb << endl;
+	cout << "//////////////COPY///////////\n";
 	cccc.attack("John");
 	cccc.takeDamage(4);
 	cccc.beRepaired(5);
