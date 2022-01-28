@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:46:28 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:54:01 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __SCAVTRAP_HPP__
-#define __SCAVTRAP_HPP__
+#ifndef __CAT_HPP__
+#define __CAT_HPP__
 
-#include "ClapTrap.hpp"
+#include "Animal.hpp"
+#include "Brain.hpp"
 #include <string>
 #include <iostream>
 
@@ -22,29 +23,28 @@ using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                               ScavTrap Class                               //
+//                                  Cat Class                                 //
 // ************************************************************************** //
 
-class ScavTrap : public ClapTrap
+class Cat : public AAnimal
 {
 	private:
-		void	display_name() const;
+		Brain	*_brain;
+
 	public:
-		ScavTrap(void);
-		ScavTrap(ScavTrap const &scavtrap);
-		ScavTrap(string const &name);
+		Cat();
+		Cat(Cat const &cat);
+		Cat(string const &type);
 
-		ScavTrap	&operator=(ScavTrap const &scavtrap);
+		Cat	&operator=(Cat const &cat);
 
-		void		attack(string const &target) const;
-		void		guardGate(void) const;
-//		void		takeDamage(unsigned int amount);
-//		void		beRepaired(unsigned int amout);
-//		ostream	&display(ostream &os) const;
+		ostream	&display(ostream &os) const;
+		void	makeSound(void) const;
+		void	setSomeIdeas(void) const;
 
-		~ScavTrap(void);
+		~Cat(void);
 };
 
-//ostream	&operator<<(ostream &os, ScavTrap const &point);
+ostream	&operator<<(ostream &os, Cat const &cat);
 
-#endif /* __SCAVTRAP_HPP__ */
+#endif /* __CAT_HPP__ */

@@ -1,48 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/26 11:53:54 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 19:58:30 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __ANIMAL_HPP__
-#define __ANIMAL_HPP__
+#ifndef __ICE_HPP__
+#define __ICE_HPP__
 
-#include <string>
-#include <iostream>
+# include "AMateria.hpp"
+# include "Character.hpp"
+# include <string>
+# include <iostream>
 
 using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                                Animal Class                                //
+//                                 Ice Class                                 //
 // ************************************************************************** //
 
-class Animal
+class Ice : public AMateria
 {
-	protected:
-		string	_type;
-
 	public:
-		Animal();
-		Animal(Animal const &animal);
-		Animal(string const &type);
+		Ice();
+		Ice(Ice const &ice);
+		~Ice(void);
 
-		Animal	&operator=(Animal const &animal);
+		Ice	&operator=(Ice const &ice);
 
-		ostream	&display(ostream &os) const;
-		string const	&getType(void) const;
-		void virtual	makeSound(void) const;
-
-		virtual ~Animal(void);
+		AMateria	*clone(void) const;
+		void		use(ICharacter const &target) const;
 };
 
-ostream	&operator<<(ostream &os, Animal const &animal);
+//ostream	&operator<<(ostream &os, Ice const &ice);
 
-#endif /* __ANIMAL_HPP__ */
+#endif /* __ICE_HPP__ */

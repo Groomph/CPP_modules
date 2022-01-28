@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   WrongCat.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:43:09 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:28:35 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __FRAGTRAP_HPP__
-#define __FRAGTRAP_HPP__
+#ifndef __WRONGCAT_HPP__
+#define __WRONGCAT_HPP__
 
-#include "ClapTrap.hpp"
+#include "WrongAnimal.hpp"
+#include "Brain.hpp"
 #include <string>
 #include <iostream>
 
@@ -22,29 +23,28 @@ using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                               FragTrap Class                               //
+//                                WrongCat Class                              //
 // ************************************************************************** //
 
-class FragTrap : public ClapTrap
+class WrongCat : public WrongAnimal
 {
 	private:
-		void	display_name(void) const;
+		Brain	*_brain;
+
 	public:
-		FragTrap(void);
-		FragTrap(FragTrap const &fragtrap);
-		FragTrap(string const &name);
+		WrongCat();
+		WrongCat(WrongCat const &wrong);
+		WrongCat(string const &type);
 
-		FragTrap	&operator=(FragTrap const &fragtrap);
+		WrongCat	&operator=(WrongCat const &wrong);
 
-		void		attack(string const &target) const;
-		void		highFivesGuys(void) const;
-//		void		takeDamage(unsigned int amount);
-//		void		beRepaired(unsigned int amout);
-//		ostream	&display(ostream &os) const;
+		ostream	&display(ostream &os) const;
+		void	makeSound(void) const;
+		void	setSomeIdeas(void) const;
 
-		~FragTrap(void);
+		~WrongCat(void);
 };
 
-//ostream	&operator<<(ostream &os, FragTrap const &point);
+ostream	&operator<<(ostream &os, WrongCat const &wrong);
 
-#endif /* __FRAGTRAP_HPP__ */
+#endif /* __WRONGCAT_HPP__ */

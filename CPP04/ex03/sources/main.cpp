@@ -6,14 +6,16 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:24:18 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/24 19:08:39 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/27 00:16:34 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
-#include "FragTrap.hpp"
-#include "DiamondTrap.hpp"
+
+#include "AMateria.hpp"
+#include "Character.hpp"
+#include "MateriaSource.hpp"
+#include "Cure.hpp"
+#include "Ice.hpp"
 #include <string>
 #include <iostream>
 
@@ -21,68 +23,83 @@ using	std::string;
 using	std::cout;
 using	std::endl;
 
+static void	creation_materia()
+{
+	cout << "*******TEST1 create & clone materia*******\n";
+	Cure	cure;
+
+	cout << cure << endl;
+	AMateria	*cure2 = cure.clone();
+	if (cure2 == &cure)
+		cout << "WRONG, cure2 was not a deep copy of cure\n";
+	cout << *cure2 << "\n";
+	delete cure2;
+	cout << "/////DESTRUCTOR FLOOD/////" << endl;
+}
+
+static void	creation_materia_source()
+{
+	cout << "\n\n*******TEST2 create & use of MateriaSource*******" << endl;
+	MateriaSource	source;
+	Cure		cure1;
+	Cure		cure2;
+	Cure		cure3;
+	Cure		ice1;
+	Cure		ice2;
+
+	cout << source << endl;
+	source.learnMateria(&cure1);
+	source.learnMateria(&cure2);
+	source.learnMateria(&ice1);
+	source.learnMateria(&cure3);
+	cout << source << endl;
+
+	MateriaSource *source2 = new MateriaSource(source);
+	cout << *source2 << endl;
+	cout << "/////DESTRUCTOR FLOOD/////\n";
+	delete source2;
+
+	cout << "\n\n***Copy of a full materia source and try to learn***";
+	MateriaSource source3;
+	source3 = source;
+	source.learnMateria(&ice2);
+	cout << "\n\n/////DESTRUCTOR FLOOD/////" << endl;
+}
+
+static void	subject_test()
+{
+	cout << "\n\n*******TEST3 subject test*******" << endl;
+	IMateriaSource* src = new MateriaSource();
+
+	Ice	*ice = new Ice();
+	Cure	*cure = new Cure();
+	src->learnMateria(ice);
+	src->learnMateria(cure);
+
+	ICharacter* me = new Character("me");
+	AMateria* tmp;
+
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+	ICharacter* bob = new Character("bob");
+	cout << *me << endl;
+	me->use(0, *bob);
+	me->use(1, *bob);
+	cout << *me << endl;
+	cout << *bob << endl;
+	delete bob;
+	delete me;
+	delete src;
+	delete ice;
+	delete cure;
+}
+
 int	main()
 {
-	/*
-	ClapTrap	a("Bobby");
-	ClapTrap	b;
-	ClapTrap	c(a);
-
-	a.attack("a tree");
-	b.takeDamage(2);
-	c.beRepaired(3);
-
-	cout << a << b << c;
-
-	ScavTrap	aa("Chubby");
-	ScavTrap	bb;
-	ScavTrap	cc(aa);
-
-	aa.attack("a tree");
-	aa.guardGate();
-	bb.takeDamage(2);
-	bb.guardGate();
-	cc.beRepaired(3);
-	cc.guardGate();
-
-	cout << aa << bb << cc;
-	FragTrap	aaa("Rusty");
-	FragTrap	bbb;
-	FragTrap	ccc(aaa);
-
-	aaa.attack("a tree");
-	aaa.highFivesGuys();
-	bbb.takeDamage(2);
-	bbb.highFivesGuys();
-	ccc.beRepaired(3);
-	ccc.highFivesGuys();
-
-	cout << aaa << bbb << ccc;
-	return 0;
-*/
-	DiamondTrap	aaaa("Rusty");
-	DiamondTrap	bbbb;
-	DiamondTrap	cccc(aaaa);
-
-	aaaa.attack("SHINY SPAAAARKKKSSS");
-	aaaa.takeDamage(8);
-	aaaa.beRepaired(10);
-	aaaa.whoAmI();
-	cout << aaaa << endl;
-	bbbb.attack("Geronimo");
-	bbbb.takeDamage(6);
-	bbbb.beRepaired(3);
-	bbbb.whoAmI();
-	cout << bbbb << endl;
-	cout << "//////////////COPY///////////\n";
-	cccc.attack("John");
-	cccc.takeDamage(4);
-	cccc.beRepaired(5);
-	cccc.whoAmI();
-	cout << cccc << endl;
-
-	bbbb=cccc;
-	bbbb.takeDamage(2);
-	bbbb.whoAmI();
-	return 0;
+	creation_materia();
+	creation_materia_source();
+	subject_test();
+	return (0);
 }

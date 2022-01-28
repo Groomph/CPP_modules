@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/26 11:53:54 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:19:59 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __ANIMAL_HPP__
-#define __ANIMAL_HPP__
+#ifndef __CAT_HPP__
+#define __CAT_HPP__
 
+#include "Animal.hpp"
+#include "Brain.hpp"
 #include <string>
 #include <iostream>
 
@@ -21,28 +23,28 @@ using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                                Animal Class                                //
+//                                  Cat Class                                 //
 // ************************************************************************** //
 
-class Animal
+class Cat : public Animal
 {
-	protected:
-		string	_type;
+	private:
+		Brain	*_brain;
 
 	public:
-		Animal();
-		Animal(Animal const &animal);
-		Animal(string const &type);
+		Cat();
+		Cat(Cat const &cat);
+		Cat(string const &type);
 
-		Animal	&operator=(Animal const &animal);
+		Cat	&operator=(Cat const &cat);
 
 		ostream	&display(ostream &os) const;
-		string const	&getType(void) const;
-		void virtual	makeSound(void) const;
+		void	makeSound(void) const;
+		void	setSomeIdeas(void) const;
 
-		virtual ~Animal(void);
+		~Cat(void);
 };
 
-ostream	&operator<<(ostream &os, Animal const &animal);
+ostream	&operator<<(ostream &os, Cat const &cat);
 
-#endif /* __ANIMAL_HPP__ */
+#endif /* __CAT_HPP__ */

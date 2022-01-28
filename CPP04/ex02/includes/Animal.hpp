@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/26 11:53:54 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:55:50 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,28 @@ using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                                Animal Class                                //
+//                          AAnimal Abstract Class                            //
 // ************************************************************************** //
 
-class Animal
+class AAnimal
 {
 	protected:
 		string	_type;
 
 	public:
-		Animal();
-		Animal(Animal const &animal);
-		Animal(string const &type);
+		AAnimal();
+		AAnimal(AAnimal const &animal);
+		AAnimal(string const &type);
 
-		Animal	&operator=(Animal const &animal);
+		AAnimal	&operator=(AAnimal const &animal);
 
 		ostream	&display(ostream &os) const;
 		string const	&getType(void) const;
-		void virtual	makeSound(void) const;
+		void virtual	makeSound(void) const = 0;
 
-		virtual ~Animal(void);
+		virtual ~AAnimal(void);
 };
 
-ostream	&operator<<(ostream &os, Animal const &animal);
+ostream	&operator<<(ostream &os, AAnimal const &animal);
 
 #endif /* __ANIMAL_HPP__ */

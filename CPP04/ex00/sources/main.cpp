@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:24:18 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/24 22:38:31 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:31:03 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ static void	wrong_example()
 
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;
-	i->makeSound(); //will output the cat sound!
+	i->makeSound();
 	j->makeSound();
 	meta->makeSound();
+	delete meta;
+	delete j;
+	delete i;
 }
 	
 int	main()
@@ -48,6 +51,9 @@ int	main()
 	i->makeSound(); //will output the cat sound!
 	j->makeSound();
 	meta->makeSound();
+	delete meta;
+	delete j;
+	delete i;
 	wrong_example();
 	return 0;
 }

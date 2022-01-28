@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   WrongDog.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/26 11:53:54 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:29:25 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __ANIMAL_HPP__
-#define __ANIMAL_HPP__
+#ifndef __WRONGDOG_HPP__
+#define __WRONGDOG_HPP__
 
+#include "WrongAnimal.hpp"
+#include "Brain.hpp"
 #include <string>
 #include <iostream>
 
@@ -21,28 +23,27 @@ using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                                Animal Class                                //
+//                                  WrongDog Class                                 //
 // ************************************************************************** //
 
-class Animal
+class WrongDog : public WrongAnimal
 {
-	protected:
-		string	_type;
-
+	private:
+		Brain	*_brain;
 	public:
-		Animal();
-		Animal(Animal const &animal);
-		Animal(string const &type);
+		WrongDog();
+		WrongDog(WrongDog const &wrong);
+		WrongDog(string const &type);
 
-		Animal	&operator=(Animal const &animal);
+		WrongDog	&operator=(WrongDog const &wrong);
 
 		ostream	&display(ostream &os) const;
-		string const	&getType(void) const;
-		void virtual	makeSound(void) const;
+		void	makeSound(void) const;
+		void	setSomeIdeas(void) const;
 
-		virtual ~Animal(void);
+		~WrongDog(void);
 };
 
-ostream	&operator<<(ostream &os, Animal const &animal);
+ostream	&operator<<(ostream &os, WrongDog const &wrong);
 
-#endif /* __ANIMAL_HPP__ */
+#endif /* __WRONGDOG_HPP__ */

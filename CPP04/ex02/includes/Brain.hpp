@@ -1,53 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:18:19 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:46:23 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __CLAPTRAP_HPP__
-#define __CLAPTRAP_HPP__
+#ifndef __BRAIN_HPP__
+#define __BRAIN_HPP__
 
-#include <string>
-#include <iostream>
+# include <string>
+# include <iostream>
 
 using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                              ClapTrap Class                                //
+//                                Brain Class                                //
 // ************************************************************************** //
 
-class ClapTrap
+# define MAX_IDEAS 100
+
+class Brain
 {
-	protected:
-		string	_name;
-		int	_hitPoints;
-		int	_energyPoints;
-		int	_attackDamages;
+	private:
+		string	_ideas[MAX_IDEAS];
+		void	setIdeas(string const ideas[]);
 
 	public:
+		Brain();
+		Brain(Brain const &brain);
+		Brain(string const ideas[]);
 
-		ClapTrap(void);
-		ClapTrap(ClapTrap const &claptrap);
-		ClapTrap(string const &name);
+		Brain	&operator=(Brain const &brain);
 
-		ClapTrap	&operator=(ClapTrap const &fixed);
-
-		void		attack(string const &target) const;
-		void		takeDamage(unsigned int amount);
-		void		beRepaired(unsigned int amout);
 		ostream	&display(ostream &os) const;
+		string const	&getIdea(int i) const;
+		void		setIdea(int i, string const &idea);
 
-		~ClapTrap(void);
+		~Brain(void);
 };
 
-ostream	&operator<<(ostream &os, ClapTrap const &point);
+ostream	&operator<<(ostream &os, Brain const &brain);
 
-#endif /* __CLAPTRAP_HPP__ */
+#endif /* __BRAIN_HPP__ */

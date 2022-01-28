@@ -1,54 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   Cure.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/24 18:39:59 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 19:58:39 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __SCAVTRAP_HPP__
-#define __SCAVTRAP_HPP__
+#ifndef __CURE_HPP__
+#define __CURE_HPP__
 
-#include "ClapTrap.hpp"
-#include <string>
-#include <iostream>
+# include "AMateria.hpp"
+# include "Character.hpp"
+# include <string>
+# include <iostream>
 
 using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                               ScavTrap Class                               //
+//                                 Cure Class                                 //
 // ************************************************************************** //
 
-class ScavTrap : public virtual ClapTrap
+class Cure : public AMateria
 {
-	protected:
-		int	_energyPointsSave;
-
-	private:
-		void	display_name() const;
-
 	public:
-		ScavTrap(void);
-		ScavTrap(ScavTrap const &scavtrap);
-		ScavTrap(string const &name);
+		Cure();
+		Cure(Cure const &cure);
+		~Cure(void);
 
-		ScavTrap	&operator=(ScavTrap const &scavtrap);
+		Cure	&operator=(Cure const &cure);
 
-		void		attack(string const &target) const;
-		void		guardGate(void) const;
-//		void		takeDamage(unsigned int amount);
-//		void		beRepaired(unsigned int amout);
-//		ostream	&display(ostream &os) const;
-
-		~ScavTrap(void);
+		AMateria	*clone(void) const;
+		void		use(ICharacter const &target) const;
 };
 
-//ostream	&operator<<(ostream &os, ScavTrap const &point);
+//ostream	&operator<<(ostream &os, Cure const &cure);
 
-#endif /* __SCAVTRAP_HPP__ */
+#endif /* __CURE_HPP__ */

@@ -1,50 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 21:36:18 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:46:23 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __FRAGTRAP_HPP__
-#define __FRAGTRAP_HPP__
+#ifndef __BRAIN_HPP__
+#define __BRAIN_HPP__
 
-#include "ClapTrap.hpp"
-#include <string>
-#include <iostream>
+# include <string>
+# include <iostream>
 
 using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                               FragTrap Class                               //
+//                                Brain Class                                //
 // ************************************************************************** //
 
-class FragTrap : public virtual ClapTrap
+# define MAX_IDEAS 100
+
+class Brain
 {
 	private:
-		void	display_name(void) const;
+		string	_ideas[MAX_IDEAS];
+		void	setIdeas(string const ideas[]);
+
 	public:
-		FragTrap(void);
-		FragTrap(FragTrap const &fragtrap);
-		FragTrap(string const &name);
+		Brain();
+		Brain(Brain const &brain);
+		Brain(string const ideas[]);
 
-		FragTrap	&operator=(FragTrap const &fragtrap);
+		Brain	&operator=(Brain const &brain);
 
-		void		attack(string const &target) const;
-		void		highFivesGuys(void) const;
-//		void		takeDamage(unsigned int amount);
-//		void		beRepaired(unsigned int amout);
-//		ostream	&display(ostream &os) const;
+		ostream	&display(ostream &os) const;
+		string const	&getIdea(int i) const;
+		void		setIdea(int i, string const &idea);
 
-		~FragTrap(void);
+		~Brain(void);
 };
 
-//ostream	&operator<<(ostream &os, FragTrap const &point);
+ostream	&operator<<(ostream &os, Brain const &brain);
 
-#endif /* __FRAGTRAP_HPP__ */
+#endif /* __BRAIN_HPP__ */

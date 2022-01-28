@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:18:19 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:59:53 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __CLAPTRAP_HPP__
-#define __CLAPTRAP_HPP__
+#ifndef __ANIMAL_HPP__
+#define __ANIMAL_HPP__
 
 #include <string>
 #include <iostream>
@@ -21,33 +21,28 @@ using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                              ClapTrap Class                                //
+//                                Animal Class                                //
 // ************************************************************************** //
 
-class ClapTrap
+class Animal
 {
 	protected:
-		string	_name;
-		int	_hitPoints;
-		int	_energyPoints;
-		int	_attackDamages;
+		string	_type;
 
 	public:
+		Animal();
+		Animal(Animal const &animal);
+		Animal(string const &type);
 
-		ClapTrap(void);
-		ClapTrap(ClapTrap const &claptrap);
-		ClapTrap(string const &name);
+		Animal	&operator=(Animal const &animal);
 
-		ClapTrap	&operator=(ClapTrap const &fixed);
-
-		void		attack(string const &target) const;
-		void		takeDamage(unsigned int amount);
-		void		beRepaired(unsigned int amout);
 		ostream	&display(ostream &os) const;
+		string const	&getType(void) const;
+		void virtual	makeSound(void) const;
 
-		~ClapTrap(void);
+		virtual ~Animal(void);
 };
 
-ostream	&operator<<(ostream &os, ClapTrap const &point);
+ostream	&operator<<(ostream &os, Animal const &animal);
 
-#endif /* __CLAPTRAP_HPP__ */
+#endif /* __ANIMAL_HPP__ */

@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:18:19 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:18:36 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __CLAPTRAP_HPP__
-#define __CLAPTRAP_HPP__
+#ifndef __DOG_HPP__
+#define __DOG_HPP__
 
+#include "Animal.hpp"
+#include "Brain.hpp"
 #include <string>
 #include <iostream>
 
@@ -21,33 +23,27 @@ using	std::string;
 using	std::ostream;
 
 // ************************************************************************** //
-//                              ClapTrap Class                                //
+//                                  Dog Class                                 //
 // ************************************************************************** //
 
-class ClapTrap
+class Dog : public Animal
 {
-	protected:
-		string	_name;
-		int	_hitPoints;
-		int	_energyPoints;
-		int	_attackDamages;
-
+	private:
+		Brain	*_brain;
 	public:
+		Dog();
+		Dog(Dog const &dog);
+		Dog(string const &type);
 
-		ClapTrap(void);
-		ClapTrap(ClapTrap const &claptrap);
-		ClapTrap(string const &name);
+		Dog	&operator=(Dog const &dog);
 
-		ClapTrap	&operator=(ClapTrap const &fixed);
-
-		void		attack(string const &target) const;
-		void		takeDamage(unsigned int amount);
-		void		beRepaired(unsigned int amout);
 		ostream	&display(ostream &os) const;
+		void	makeSound(void) const;
+		void	setSomeIdeas(void) const;
 
-		~ClapTrap(void);
+		~Dog(void);
 };
 
-ostream	&operator<<(ostream &os, ClapTrap const &point);
+ostream	&operator<<(ostream &os, Dog const &dog);
 
-#endif /* __CLAPTRAP_HPP__ */
+#endif /* __DOG_HPP__ */
