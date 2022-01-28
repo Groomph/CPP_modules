@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:24:18 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:21:30 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 20:50:36 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,22 @@ int	main()
 	ScavTrap	bb;
 	ScavTrap	cc(aa);
 
-	aa.attack("a tree");
-	aa.guardGate();
-	bb.takeDamage(2);
+	cout << "******* BOUCLE 1 *******" << endl;
+	bb.attack("Bobby");
 	bb.guardGate();
-	cc.beRepaired(3);
+	aa.takeDamage(50);
+	aa.guardGate();
+	for (int i = 0; i < 15; i++)
+		cc.beRepaired(3);
 	cc.guardGate();
-
+	cout << aa << bb << cc;
+	cout << "\n\n******* BOUCLE 2 *******" << endl;
+	bb.attack("Bobby");
+	aa.takeDamage(50);
+	aa.guardGate();
+	for (int i = 0; i < 15; i++)
+		cc.beRepaired(3);
+	cc.guardGate();
 	cout << aa << bb << cc;
 	return 0;
 }

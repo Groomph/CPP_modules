@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:52:46 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:00:54 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,44 @@ FragTrap	&FragTrap::operator=(FragTrap const &fragtrap)
 {
 	if (this != &fragtrap)
 	{
-		_name = fragtrap._name;
-		_hitPoints = fragtrap._hitPoints;
-		_energyPoints = fragtrap._energyPoints;
-		_attackDamages = fragtrap._attackDamages;
+		ClapTrap::operator=(fragtrap);
 	}
 	return (*this);
 }
 
-void	FragTrap::attack(string const &target) const
+void	FragTrap::attack(string const &target)
 {	
-	display_name();
-	cout << "attack " << target << " causing, " << _attackDamages
-		<< " damages!" << endl;
+        if (_energyPoints > 0 && _hitPoints > 0)
+        {
+		_energyPoints--;
+		display_name();
+		cout << "attack " << target << ", causing " << _attackDamages
+			<< " damages!" << endl;
+	}
+	else if (_energyPoints == 0)
+	{
+		display_name();
+		lowEnergy();
+	}
+	if (_hitPoints == 0)
+	{
+		display_name();
+		lowLife();
+	}
 }
 
 void	FragTrap::highFivesGuys() const
 {
-	display_name();
-	cout << "is currently requesting a high five!!!" << endl;
+	if (_hitPoints > 0)
+	{
+		display_name();
+		cout << "is currently requesting a high five!!!" << endl;
+	}
+	else
+	{
+		display_name();
+		lowLife();
+	}
 }
 
 FragTrap::~FragTrap()

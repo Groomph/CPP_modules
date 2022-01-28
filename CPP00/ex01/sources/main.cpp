@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 21:03:24 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 16:03:50 by romain           ###   ########.fr       */
+/*   Updated: 2022/01/28 21:52:45 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ int	main()
 
 	while (input != "EXIT")
 	{
-		cout << "cmd: ";
+		cout << "\e[1;35mphonebook: \e[0m";
 		cin >> input;
+		if (cin.eof())
+			break;
 		if (input == "ADD")
 			book.add_contact();
 		else if (input == "SEARCH")
@@ -50,5 +52,6 @@ int	main()
 			}
 		}
 	}
+	cout << "\nHave a nice day!" << endl;
 	return (0);
 }

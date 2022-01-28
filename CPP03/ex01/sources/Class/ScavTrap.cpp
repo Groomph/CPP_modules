@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:20:34 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 20:48:43 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,55 +52,64 @@ ScavTrap	&ScavTrap::operator=(ScavTrap const &scavtrap)
 {
 	if (this != &scavtrap)
 	{
-		_name = scavtrap._name;
-		_hitPoints = scavtrap._hitPoints;
-		_energyPoints = scavtrap._energyPoints;
-		_attackDamages = scavtrap._attackDamages;
+		ClapTrap::operator=(scavtrap);
 	}
 	return (*this);
 }
 
-void	ScavTrap::attack(string const &target) const
+void	ScavTrap::attack(string const &target)
 {	
-	cout << "ScavTrap::<" << _name << "> attack " << target << " causing, "
-		<< _attackDamages << " damages!" << endl;
+	if (_energyPoints > 0 && _hitPoints > 0)
+	{
+		_energyPoints--;
+		cout << "ScavTrap::<" << _name << "> attack " << target
+			<< ", causing "	<< _attackDamages << " damages!"
+			<< endl;
+	}
+	else if (_energyPoints == 0)
+		lowEnergy();
+	if (_hitPoints == 0)
+		lowLife();
 }
 
 void	ScavTrap::guardGate() const
 {
-	cout << "ScavTrap::<" << _name
-		<< "> have enterred in Gate keeper mode!" << endl;
+	if (_hitPoints > 0)
+		cout << "ScavTrap::<" << _name
+			<< "> have enterred in Gate keeper mode!" << endl;
+	else
+		lowLife();
 }
 
 /*
-void	ScavTrap::takeDamage(unsigned int amount)
-{
-	cout << "ScavTrap::<" << _name << "> take " << amount
-		<< " damages!" << endl;
-	_hitPoints -= amount;
-}
+   void	ScavTrap::takeDamage(unsigned int amount)
+   {
+   cout << "ScavTrap::<" << _name << "> take " << amount
+   << " damages!" << endl;
+   _hitPoints -= amount;
+   }
 
-void	ScavTrap::beRepaired(unsigned int amount)
-{
-	cout << "ScavTrap::<" << _name << "> get repaired of " << amount
-		<< " hitpoints!" <<endl;
-	_hitPoints += amount;
-}
+   void	ScavTrap::beRepaired(unsigned int amount)
+   {
+   cout << "ScavTrap::<" << _name << "> get repaired of " << amount
+   << " hitpoints!" <<endl;
+   _hitPoints += amount;
+   }
 
-ostream &ScavTrap::display(ostream &os) const
-{
-	os << "ScavTrap::<" << _name << "> Hitpoints:" << _hitPoints
-		<< " Energypoints:" << _energyPoints
-		<< " AttackDamages:" << _attackDamages << endl;
-	return (os);
-}
+   ostream &ScavTrap::display(ostream &os) const
+   {
+   os << "ScavTrap::<" << _name << "> Hitpoints:" << _hitPoints
+   << " Energypoints:" << _energyPoints
+   << " AttackDamages:" << _attackDamages << endl;
+   return (os);
+   }
 
-ostream &operator<<(ostream &left, ScavTrap const &right)
-{
-	right.display(left);
-	return (left);
-}
-*/
+   ostream &operator<<(ostream &left, ScavTrap const &right)
+   {
+   right.display(left);
+   return (left);
+   }
+   */
 
 ScavTrap::~ScavTrap()
 {

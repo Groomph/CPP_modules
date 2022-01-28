@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 21:36:18 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:23:42 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,15 @@ class FragTrap : public virtual ClapTrap
 		FragTrap(void);
 		FragTrap(FragTrap const &fragtrap);
 		FragTrap(string const &name);
+		virtual	~FragTrap(void);
 
 		FragTrap	&operator=(FragTrap const &fragtrap);
 
-		void		attack(string const &target) const;
+		void		attack(string const &target);
 		void		highFivesGuys(void) const;
 //		void		takeDamage(unsigned int amount);
 //		void		beRepaired(unsigned int amout);
 //		ostream	&display(ostream &os) const;
-
-		~FragTrap(void);
 };
 
 //ostream	&operator<<(ostream &os, FragTrap const &point);

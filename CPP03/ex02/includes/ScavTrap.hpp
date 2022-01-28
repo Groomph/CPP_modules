@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:46:28 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 20:55:13 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ class ScavTrap : public ClapTrap
 {
 	private:
 		void	display_name() const;
+
 	public:
 		ScavTrap(void);
 		ScavTrap(ScavTrap const &scavtrap);
@@ -36,7 +37,7 @@ class ScavTrap : public ClapTrap
 
 		ScavTrap	&operator=(ScavTrap const &scavtrap);
 
-		void		attack(string const &target) const;
+		void		attack(string const &target);
 		void		guardGate(void) const;
 //		void		takeDamage(unsigned int amount);
 //		void		beRepaired(unsigned int amout);

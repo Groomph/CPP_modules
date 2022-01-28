@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:18:19 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 20:44:06 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,25 @@ using	std::ostream;
 //                              ClapTrap Class                                //
 // ************************************************************************** //
 
-class ClapTrap
-{
+class ClapTrap {
 	protected:
 		string	_name;
 		int	_hitPoints;
 		int	_energyPoints;
 		int	_attackDamages;
 
+		void	lowEnergy(void) const;
+		void	lowLife(void) const;
+
 	public:
 
-		ClapTrap(void);
+		ClapTrap();
 		ClapTrap(ClapTrap const &claptrap);
 		ClapTrap(string const &name);
 
 		ClapTrap	&operator=(ClapTrap const &fixed);
 
-		void		attack(string const &target) const;
+		void		attack(string const &target);
 		void		takeDamage(unsigned int amount);
 		void		beRepaired(unsigned int amout);
 		ostream	&display(ostream &os) const;

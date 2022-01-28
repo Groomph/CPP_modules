@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:18:42 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 20:41:10 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,17 @@ using	std::cout;
 using	std::endl;
 using	std::ostream;
 
-/*************   PRIVATE   *************/ 
+/*************   PRIVATE   *************/
+
+void	ClapTrap::lowEnergy() const
+{
+	cout << '<' << _name << "> is out of energy points" << endl;
+}
+
+void	ClapTrap::lowLife() const
+{
+	cout << '<' << _name << "> is out of hitpoints" << endl;
+}
 
 /*************   PUBLIC   *************/ 
 
@@ -59,23 +69,39 @@ ClapTrap	&ClapTrap::operator=(ClapTrap const &claptrap)
 	return (*this);
 }
 
-void	ClapTrap::attack(string const &target) const
+void	ClapTrap::attack(string const &target)
 {	
-	cout << '<' << _name << "> attack " << target << " causing, "
-		<< _attackDamages << " damages!" << endl;
+	if (_energyPoints > 0 && _hitPoints > 0)
+	{
+		_energyPoints--;
+		cout << '<' << _name << "> attack " << target << ", causing "
+			<< _attackDamages << " damages!" << endl;
+	}
+	else if (_energyPoints == 0)
+		lowEnergy();
+	if (_hitPoints == 0)
+		lowLife();
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
 {
 	cout << '<' << _name << "> take " << amount << " damages!" << endl;
 	_hitPoints -= amount;
+	if (_hitPoints < 0)
+		_hitPoints = 0;
 }
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	cout << '<' << _name << "> get repaired of " << amount << " hitpoints!"
-		<<endl;
-	_hitPoints += amount;
+	if (_energyPoints > 0)
+	{
+		cout << '<' << _name << "> get repaired of " << amount
+			<< " hitpoints!" <<endl;
+		_energyPoints--;
+		_hitPoints += amount;
+	}
+	else
+		lowEnergy();
 }
 
 ostream &ClapTrap::display(ostream &os) const

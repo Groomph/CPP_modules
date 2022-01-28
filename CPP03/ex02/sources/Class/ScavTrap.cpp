@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:59:40 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:00:12 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,54 +30,73 @@ void	ScavTrap::display_name() const
 
 ScavTrap::ScavTrap() :  ClapTrap("ScavTrap")
 {
-	_hitPoints = 100;
-	_energyPoints = 50;
-	_attackDamages = 20;
-	display_name();
-	cout << "default constructor called" << endl;
+	ClapTrap::_hitPoints = 100;
+	ClapTrap::_energyPoints = 50;
+	ClapTrap::_attackDamages = 20;
+	cout << "ScavTrap::<" << _name
+		<< "> default constructor called" << endl;
 }
 
 ScavTrap::ScavTrap(string const &name) : ClapTrap(name)
 {
-	_hitPoints = 100;
-	_energyPoints = 50;
-	_attackDamages = 20;
-	display_name();
-	cout << "name constructor called" << endl;
+	ClapTrap::_hitPoints = 100;
+	ClapTrap::_energyPoints = 50;
+	ClapTrap::_attackDamages = 20;
+	cout << "ScavTrap::<" << _name << "> name constructor called" << endl;
 }
 
 ScavTrap::ScavTrap(ScavTrap const &scavtrap) : ClapTrap(scavtrap)
 {
-	_hitPoints = 100;
-	_energyPoints = 50;
-	_attackDamages = 20;
-	display_name();
-	cout << "copy constructor called" << endl;
+	ClapTrap::_hitPoints = 100;
+	ClapTrap::_energyPoints = 50;
+	ClapTrap::_attackDamages = 20;
+	cout << "ScavTrap::<" << _name << "> copy constructor called" << endl;
 }
 
 ScavTrap	&ScavTrap::operator=(ScavTrap const &scavtrap)
 {
 	if (this != &scavtrap)
 	{
-		_name = scavtrap._name;
-		_hitPoints = scavtrap._hitPoints;
-		_energyPoints = scavtrap._energyPoints;
-		_attackDamages = scavtrap._attackDamages;
+		ClapTrap::operator=(scavtrap);
 	}
 	return (*this);
 }
 
-void	ScavTrap::attack(string const &target) const
+void	ScavTrap::attack(string const &target)
 {	
-	display_name();
-	cout << "attack " << target << " causing, "
-		<< _attackDamages << " damages!" << endl;
+	if (_energyPoints > 0 && _hitPoints > 0)
+	{
+		_energyPoints--;
+		display_name();
+		cout << "ScavTrap::<" << _name << "> attack " << target
+			<< ", causing "	<< _attackDamages << " damages!"
+			<< endl;
+	}
+	else if (_energyPoints == 0)
+	{
+		display_name();
+		lowEnergy();
+	}
+	if (_hitPoints == 0)
+	{
+		display_name();
+		lowLife();
+	}
 }
 
 void	ScavTrap::guardGate() const
 {
-	display_name();
-	cout << "have enterred in Gate keeper mode!" << endl;
+	if (_hitPoints > 0)
+	{
+		display_name();
+		cout << "ScavTrap::<" << _name
+			<< "> have enterred in Gate keeper mode!" << endl;
+	}
+	else
+	{
+		display_name();
+		lowLife();
+	}
 }
 
 /*
@@ -112,6 +131,5 @@ void	ScavTrap::guardGate() const
 
 ScavTrap::~ScavTrap()
 {
-	display_name();
-	cout << "destructor called" << endl;
+	cout << "ScavTrap::<" << _name << "> destructor called" << endl;
 }

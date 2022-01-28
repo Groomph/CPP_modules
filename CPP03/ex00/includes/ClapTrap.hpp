@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/18 20:18:59 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 20:22:15 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ class ClapTrap {
 		int	_energyPoints;
 		int	_attackDamages;
 
+		void	lowEnergy(void) const;
+		void	lowLife(void) const;
+
 	public:
 
 		ClapTrap();
@@ -39,7 +42,7 @@ class ClapTrap {
 
 		ClapTrap	&operator=(ClapTrap const &fixed);
 
-		void		attack(string const &target) const;
+		void		attack(string const &target);
 		void		takeDamage(unsigned int amount);
 		void		beRepaired(unsigned int amout);
 		ostream	&display(ostream &os) const;

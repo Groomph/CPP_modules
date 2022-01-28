@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/24 21:27:27 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:34:23 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ DiamondTrap::DiamondTrap() : ClapTrap("Shiny_clap_name"),
 				_name("Shiny")
 {
 	_hitPoints = FragTrap::_hitPoints;
-	_energyPoints = ScavTrap::_energyPointsSave;
+	_energyPoints = ScavTrap::_energyPoints2;
 	_attackDamages = FragTrap::_attackDamages;
 	display_name();
 	cout << "default constructor called" << endl;
 }
 
 DiamondTrap::DiamondTrap(string const &name) : ClapTrap(name + "_clap_name"),
-						_name(name)
+				_name(name)
 {
 	_hitPoints = FragTrap::_hitPoints;
-	_energyPoints = ScavTrap::_energyPointsSave;
+	_energyPoints = ScavTrap::_energyPoints2;
 	_attackDamages = FragTrap::_attackDamages;
 	display_name();
 	cout << "name constructor called" << endl;
@@ -62,30 +62,36 @@ DiamondTrap	&DiamondTrap::operator=(DiamondTrap const &diamond)
 {
 	if (this != &diamond)
 	{
-//		ClapTrap::operator=(diamond);
+		ClapTrap::operator=(diamond);
 		_name = diamond._name;
-		ClapTrap::_name = diamond.ClapTrap::_name;
-		_hitPoints = diamond._hitPoints;
-		_energyPoints = diamond._energyPointsSave;
-		_attackDamages = diamond._attackDamages;
 	}
 	display(cout);
 	return (*this);
 }
 
-void	DiamondTrap::attack(string const &target) const
-{
-	ScavTrap::attack(target);
-	//	display_name();
-	//	cout << "attack " << target << " causing, " << _attackDamages
-	//		<< " damages!" << endl;
+/*
+   void	DiamondTrap::attack(string const &target) const
+   {
+   ScavTrap::attack(target);
+//	display_name();
+//	cout << "attack " << target << " causing, " << _attackDamages
+//		<< " damages!" << endl;
 }
+*/
 
 void	DiamondTrap::whoAmI(void) const
 {
-	display_name();
-	cout << "who am i? :( " << _name << " or " << ClapTrap::_name
-		<< "?" << endl;
+	if (_hitPoints > 0)
+	{
+		display_name();
+		cout << "who am i? :( " << _name << " or " << ClapTrap::_name
+			<< "?" << endl;
+	}
+	else
+	{
+		display_name();
+		lowLife();
+	}
 }
 
 ostream &DiamondTrap::display(ostream &os) const

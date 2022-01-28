@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/24 16:04:39 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:23:25 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,15 @@ class DiamondTrap : public ScavTrap, public FragTrap
 		DiamondTrap(void);
 		DiamondTrap(DiamondTrap const &diamondtrap);
 		DiamondTrap(string const &name);
+		virtual	~DiamondTrap(void);
 
 		DiamondTrap	&operator=(DiamondTrap const &diamondtrap);
 
-		void		attack(string const &target) const;
+		using		ScavTrap::attack;
 		void		whoAmI(void) const;
 //		void		takeDamage(unsigned int amount);
 //		void		beRepaired(unsigned int amout);
 		ostream	&display(ostream &os) const;
-
-		~DiamondTrap(void);
 };
 
 ostream	&operator<<(ostream &os, DiamondTrap const &diamond);
