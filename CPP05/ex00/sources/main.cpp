@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:24:18 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/27 17:02:51 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/29 20:10:06 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,20 @@ int	main()
 	Bureaucrat	brigit("Brigit");
 
 	cout << brigit << endl;
-	for (int i = 0; i < 30; i++)
-		brigit++;
+	for (int i = 0; i < 10; i++)
+		++brigit;
+	cout << brigit << endl;
+	for (int i = 0; i < 12; i++)
+		--brigit;
 	cout << brigit << endl;
 	cout << bob << endl;
 	bob = brigit;
 	cout << bob << endl;
 
+	Bureaucrat	claire("Claire", 2);
+	++claire;
+	++claire;
+	++claire;
+	cout << claire << endl;
 	return 0;
 }

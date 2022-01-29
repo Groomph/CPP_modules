@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/28 21:59:46 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/29 20:57:21 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,15 @@ class Bureaucrat
 	private:
 		string const	_name;
 		unsigned int	_grade;
+
+		void	assign_grade(unsigned int grade);
+		void	handle_grade(const char *error, unsigned int grade);
 	public:
 
 		Bureaucrat(void);
 		Bureaucrat(Bureaucrat const &brcrat);
 		Bureaucrat(string const &name);
+		Bureaucrat(string const &name, unsigned int grade);
 		~Bureaucrat(void);
 
 		Bureaucrat	&operator=(Bureaucrat const &brcrat);

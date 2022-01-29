@@ -6,20 +6,49 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/28 22:12:59 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/29 21:35:50 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "ErrorBrcrat.hpp"
 #include <string>
 #include <iostream>
 
 using	std::string;
 using	std::cout;
+using	std::cerr;
 using	std::endl;
 using	std::ostream;
 
 /*************   PRIVATE   *************/ 
+
+void	Bureaucrat::assign_grade(unsigned int grade)
+{
+	if (grade > 150)
+	{
+		throw (ErrorBrcrat(TOOLOW));
+	}
+	else if (grade < 1)
+	{
+		throw (ErrorBrcrat(TOOHIGH));
+	}
+	_grade = grade;
+}
+
+void	Bureaucrat::handle_grade(const char *error, unsigned int grade)
+{
+	if (grade > 150)
+	{
+		_grade = 150;
+		cerr << error << endl;
+	}
+	else
+	{
+		_grade = 1;
+		cerr << error << endl;
+	}
+}
 
 /*************   PUBLIC   *************/ 
 
@@ -36,8 +65,14 @@ Bureaucrat::Bureaucrat(string const &name) : _name(name), _grade(150)
 Bureaucrat::Bureaucrat(string const &name, unsigned int grade) : _name(name),
 								_grade(grade)
 {
-	if (_grade > 150)
-		grade = 150;
+	try
+	{
+		assign_grade(_grade);
+	}
+	catch (ErrorBrcrat &error)
+	{
+		handle_grade(error.what(), _grade);
+	}
 	cout << '<' << _name << "> name constructor called" << endl;
 }
 
@@ -100,26 +135,28 @@ unsigned int	Bureaucrat::getGrade() const
 
 void	Bureaucrat::promote()
 {
-	if (_grade > 1)
+	try
 	{
-		_grade--;
+		assign_grade(--_grade);
 		cout << '<' << _name << "> promoted to " << _grade << endl;
 	}
-	else
-		cout << '<' << _name
-			<< "> is already the highest bureaucrat around"	<< endl;
+	catch (ErrorBrcrat &error)
+	{
+		handle_grade(error.what(), _grade);
+	}
 }
 
 void	Bureaucrat::degrade()
 {
-	if (_grade < 150)
+	try
 	{
-		_grade++;
+		assign_grade(++_grade);
 		cout << '<' << _name << "> degraded to " << _grade << endl;
 	}
-	else
-		cout << '<' << _name
-			<< "> is already at the lowest grade" << endl;
+	catch (ErrorBrcrat &error)
+	{
+		handle_grade(error.what(), _grade);
+	}
 }
 
 ostream &operator<<(ostream &left, Bureaucrat const &right)
