@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/27 16:59:50 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:59:46 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ class Bureaucrat
 
 		Bureaucrat	&operator=(Bureaucrat const &brcrat);
 		Bureaucrat	&operator--(void);
+		Bureaucrat	operator--(int);
 		Bureaucrat	&operator++(void);
+		Bureaucrat	operator++(int);
 		ostream		&display(ostream &os) const;
 
 		string const	&getName(void) const;
