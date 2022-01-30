@@ -6,11 +6,12 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/29 23:55:15 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/30 23:49:24 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 #include <string>
 #include <iostream>
 
@@ -21,33 +22,6 @@ using	std::endl;
 using	std::ostream;
 
 /*************   PRIVATE   *************/ 
-
-void	Bureaucrat::assign_grade(unsigned int grade)
-{
-	if (grade > 150)
-	{
-		throw (GradeTooLowException());
-	}
-	else if (grade < 1)
-	{
-		throw (GradeTooHighException());
-	}
-	_grade = grade;
-}
-
-void	Bureaucrat::handle_grade(const char *error, unsigned int grade)
-{
-	if (grade > 150)
-	{
-		_grade = 150;
-		cerr << error << endl;
-	}
-	else
-	{
-		_grade = 1;
-		cerr << error << endl;
-	}
-}
 
 /*************   PUBLIC   *************/ 
 
@@ -64,15 +38,11 @@ Bureaucrat::Bureaucrat(string const &name) : _name(name), _grade(150)
 Bureaucrat::Bureaucrat(string const &name, unsigned int grade) : _name(name),
 								_grade(grade)
 {
-	try
-	{
-		assign_grade(_grade);
-	}
-	catch (exception const &error)
-	{
-		handle_grade(error.what(), _grade);
-	}
 //	cout << '<' << _name << "> name constructor called" << endl;
+	if (_grade > 150)
+		throw (GradeTooLowException());
+	if (_grade < 1)
+		throw (GradeTooHighException());
 }
 
 Bureaucrat::Bureaucrat(Bureaucrat const &brcrat) : _name(brcrat._name)
@@ -116,9 +86,9 @@ Bureaucrat	Bureaucrat::operator--(int)
 	return (copy);
 }
 
-ostream &Bureaucrat::display(ostream &os) const
+ostream		&operator<<(ostream &os, Bureaucrat const &cra)
 {
-	os << "Bureaucrat::<" << _name << "> Grade: " << _grade;
+	os << "Bureaucrat::<" << cra._name << "> Grade: " << cra._grade;
 	return (os);
 }
 
@@ -134,34 +104,39 @@ unsigned int	Bureaucrat::getGrade() const
 
 void	Bureaucrat::promote()
 {
-	try
+	if (_grade > 1)
 	{
-		assign_grade(--_grade);
+		--_grade;
 		cout << '<' << _name << "> promoted to " << _grade << endl;
 	}
-	catch (exception const &error)
-	{
-		handle_grade(error.what(), _grade);
-	}
+	else
+		throw (GradeTooHighException());
 }
 
 void	Bureaucrat::degrade()
 {
-	try
+	if (_grade < 150)
 	{
-		assign_grade(++_grade);
+		++_grade;
 		cout << '<' << _name << "> degraded to " << _grade << endl;
 	}
-	catch (exception const &error)
-	{
-		handle_grade(error.what(), _grade);
-	}
+	else
+		throw (GradeTooLowException());
 }
 
-ostream &operator<<(ostream &left, Bureaucrat const &right)
+void	Bureaucrat::signForm(Form &form) const
 {
-	right.display(left);
-	return (left);
+	try
+	{
+		form.beSigned(*this);
+		cout << "Bureaucrat::<" << _name << "> signed <" 
+			<< form.getName() << '>' << endl;
+	}
+	catch (exception &e)
+	{
+		cout << "Bureaucrat::<" << _name << "> couldn't sign "
+		<< form.getName() << " because " << e.what() << endl;
+	}
 }
 
 Bureaucrat::~Bureaucrat()

@@ -6,7 +6,7 @@
 #    By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 16:05:34 by rsanchez          #+#    #+#              #
-#    Updated: 2022/01/26 23:50:23 by romain           ###   ########.fr        #
+#    Updated: 2022/01/30 23:52:49 by rsanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
 
 $(DIR_O)/%.o: $(DIR_S)/%.cpp
-	@mkdir -p $(DIR_O)
-	@mkdir -p $(DIR_O)/$(CLASS)
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
 
 norme:
