@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/29 23:35:21 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/29 23:55:15 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ Bureaucrat	Bureaucrat::operator--(int)
 
 ostream &Bureaucrat::display(ostream &os) const
 {
-	os << '<' << _name << "> Grade: " << _grade;
+	os << "Bureaucrat::<" << _name << "> Grade: " << _grade;
 	return (os);
 }
 

@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/29 23:29:46 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/01/30 13:22:09 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef __BUREAUCRAT_HPP__
-#define __BUREAUCRAT_HPP__
+#ifndef __FORM_HPP__
+#define __FORM_HPP__
 
+#include "Bureaucrat.hpp"
 #include <string>
 #include <iostream>
 #include <exception>
@@ -23,36 +24,35 @@ using	std::ostream;
 using	std::exception;
  
 // ************************************************************************** //
-//                              Bureaucrat Class                              //
+//                              Form Class                              //
 // ************************************************************************** //
 
-class Bureaucrat
+class Form
 {
 	private:
-		string const	_name;
-		unsigned int	_grade;
+		string const		_name;
+		bool			_isSigned;
+		unsigned int const	_gradeSign;
+		unsigned int const	_gradeExec;
 
-		void	assign_grade(unsigned int grade);
-		void	handle_grade(const char *error, unsigned int grade);
+		void	check_grade() const;
+		void	low_grade(const char *error);
+		void	high_grade(const char *error);
 	public:
 
-		Bureaucrat(void);
-		Bureaucrat(Bureaucrat const &brcrat);
-		Bureaucrat(string const &name);
-		Bureaucrat(string const &name, unsigned int grade);
-		~Bureaucrat(void);
+		Form(void);
+		Form(Form const &form);
+		Form(string const &name, unsigned int sign, unsigned int exec);
+		~Form(void);
 
-		Bureaucrat	&operator=(Bureaucrat const &brcrat);
-		Bureaucrat	&operator--(void);
-		Bureaucrat	operator--(int);
-		Bureaucrat	&operator++(void);
-		Bureaucrat	operator++(int);
+		Form	&operator=(Form const &form);
 		ostream		&display(ostream &os) const;
 
 		string const	&getName(void) const;
-		unsigned int	getGrade(void) const;
-		void		promote(void);
-		void		degrade(void);
+		bool		isSigned(void) const;
+		unsigned int	getGradeSign(void) const;
+		unsigned int	getGradeExec(void) const;
+		void		beSigned(Bureaucrat brcrat);
 
 	class GradeTooHighException : public exception
 	{
@@ -67,6 +67,6 @@ class Bureaucrat
 	};
 };
 
-ostream	&operator<<(ostream &os, Bureaucrat const &brcrat);
+ostream	&operator<<(ostream &os, Form const &form);
 
-#endif /* __BUREAUCRAT_HPP__ */
+#endif /* __FORM_HPP__ */
