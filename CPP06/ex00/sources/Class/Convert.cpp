@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 17:18:07 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/02/02 22:14:27 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:00:37 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_type		Convert::getFloatError() const
 {
 	t_type	type(UNDEFINED);
 
+	if (_arg.length() < 3)
+		return (UNDEFINED);
 	if (_arg.find("inf", 0, 3) == 0)
 		type = INF;
 	else if (_arg.find("INF", 0, 3) == 0)
@@ -202,56 +204,49 @@ ostream		&operator<<(ostream &os, Convert const &convert)
 	return (convert.print(os));
 }
 
+Convert::t_print const Convert::_print[] =
+{
+	&Convert::printUndef,
+	&Convert::printChar,
+	&Convert::printInt,
+	&Convert::printNan,
+	&Convert::printInf,
+	&Convert::printFloat,
+	&Convert::printDouble,
+	NULL
+};
+
 ostream		&Convert::print(ostream &os) const
 {
-	ostream	&(*(f[]))(string const &, ostream &, t_type) =
-	{
-		Convert::printUndef,
-		Convert::printChar,
-		Convert::printInt,
-		Convert::printNan,
-		Convert::printInf,
-		Convert::printFloat,
-		Convert::printDouble,
-		NULL
-	};
-
-	for (int i = 0; f[i]; i++)
+	for (int i = 0; _print[i]; i++)
 	{
 		if (_type & (1U << i))
 		{
-			return (f[i](_arg, os, _type));
+			return ((this->*_print[i])(os));
 		}
 	}
 	return (os);
 }
 
-ostream		&Convert::printUndef(string const &_arg, ostream &os,
-								t_type _type)
+ostream		&Convert::printUndef(ostream &os) const
 {
-	(void)_arg;
-	(void)_type;
 	os << "char: undefined\n"
 		<< "int: undefined\nfloat: undefined\ndouble: undefined"; 
 	return (os);
 }
 
-ostream		&Convert::printNan(string const &_arg, ostream &os,
-								t_type _type)
+ostream		&Convert::printNan(ostream &os) const
 {
-	(void)_arg;
 	os << "char: impossible\nint: impossible\n";
 	if (_type & NEGATIVE)
-		os << "float: -NaNf\ndouble: -Nan";
+		os << "float: -NaNf\ndouble: -NaN";
 	else
-		os << "float: NaNf\ndouble: Nan";
+		os << "float: NaNf\ndouble: NaN";
 	return (os);
 }
 
-ostream		&Convert::printInf(string const &_arg, ostream &os,
-								t_type _type)
+ostream		&Convert::printInf(ostream &os) const
 {
-	(void)_arg;
 	os << "char: impossible\nint: impossible\n";
 	if (_type & NEGATIVE)
 		os << "float: -inff\ndouble: -inf";
@@ -260,12 +255,10 @@ ostream		&Convert::printInf(string const &_arg, ostream &os,
 	return (os);
 }
 
-ostream		&Convert::printChar(string const &_arg, ostream &os,
-								t_type _type)
+ostream		&Convert::printChar(ostream &os) const
 {
 	unsigned int	tmp = 0;
 
-	(void)_type;
 	if (_arg[1])
 	{
 		os << "char: '" << _arg << "'\n";
@@ -291,8 +284,7 @@ ostream		&Convert::printChar(string const &_arg, ostream &os,
 	return (os);
 }
 
-ostream		&Convert::printInt(string const &_arg, ostream &os,
-								t_type _type)
+ostream		&Convert::printInt(ostream &os) const
 {
 	int		int_nb;
 	long int	nb = strtol(_arg.c_str(), NULL, 10);
@@ -319,8 +311,7 @@ ostream		&Convert::printInt(string const &_arg, ostream &os,
 	return (os);
 }
 
-ostream		&Convert::printFloat(string const &_arg, ostream &os,
-								t_type _type)
+ostream		&Convert::printFloat(ostream &os) const
 {
 	float	nb = strtof(_arg.c_str(), NULL);
 
@@ -350,8 +341,7 @@ ostream		&Convert::printFloat(string const &_arg, ostream &os,
 	return (os);
 }
 
-ostream		&Convert::printDouble(string const &_arg, ostream &os,
-								t_type _type)
+ostream		&Convert::printDouble(ostream &os) const
 {
 	float	nb = strtod(_arg.c_str(), NULL);
 
@@ -374,7 +364,6 @@ ostream		&Convert::printDouble(string const &_arg, ostream &os,
 	else
 		os << "int: " << static_cast<int>(nb) << '\n';
 	os << "float: " << static_cast<float>(nb);
-//	if (nb == roundf(nb))
 	if (nb == static_cast<int>(nb))
 		os << ".0f\ndouble: " << static_cast<double>(nb) << ".0";
 	else

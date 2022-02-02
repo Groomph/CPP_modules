@@ -6,7 +6,7 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/02/02 20:41:01 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/02/02 22:54:40 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef char t_type;
 
 class Convert
 {
+	typedef ostream &(Convert::*t_print)(ostream &) const;
+
 	private:
 		string			_arg;
 		t_type			_type;
@@ -54,21 +56,15 @@ class Convert
 		t_type		getNumericType(void) const;
 		bool		isChar(void) const;
 
+		t_print static const	_print[];
 		ostream	&print(ostream &os) const;
-		static ostream	&printUndef(string const &_arg, ostream &os,
-								t_type _type);
-		static ostream	&printNan(string const &_arg, ostream &os,
-								t_type _type);
-		static ostream	&printInf(string const &_arg, ostream &os,
-								t_type _type);
-		static ostream	&printChar(string const &_arg, ostream &os,
-								t_type _type);
-		static ostream	&printInt(string const &_arg, ostream &os,
-								t_type _type);
-		static ostream	&printFloat(string const &_arg, ostream &os,
-								t_type _type);
-		static ostream	&printDouble(string const &_arg, ostream &os,
-								t_type _type);
+		ostream	&printUndef(ostream &os) const;
+		ostream	&printNan(ostream &os) const;
+		ostream	&printInf(ostream &os) const;
+		ostream	&printChar(ostream &os) const;
+		ostream	&printInt(ostream &os) const;
+		ostream	&printFloat(ostream &os) const;
+		ostream	&printDouble(ostream &os) const;
 	public:
 
 		Convert(void);
@@ -77,8 +73,7 @@ class Convert
 		~Convert(void);
 
 		Convert	&operator=(Convert const &convert);
-		friend ostream	&operator<<(ostream &os,
-						Convert const &convert);
+		friend ostream	&operator<<(ostream &os, Convert const &conver);
 
 };
 
