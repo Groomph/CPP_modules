@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Convert.hpp                                     :+:      :+:    :+:   */
+/*   Convert.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:11:19 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/02/01 16:10:48 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/02/02 20:41:01 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,47 @@ using	std::exception;
 
 enum	e_type
 {
-	CHAR = 0,
-	INT,
-	FLOAT,
-	DOUBLE,
-	UNDEFINED
-}
+	UNDEFINED = (1U << 0),
+	CHAR = (1U << 1),
+	INT = (1U << 2),
+	NAN = (1U << 3),
+	INF = (1U << 4),
+	FLOAT = (1U << 5),
+	DOUBLE = (1U << 6),
+	NEGATIVE = (1U << 7)
+};
+
+typedef char t_type;
 
 class Convert
 {
 	private:
 		string			_arg;
-		char			_char;
-		int				_int;
-		float			_float;
-		double			_double;
-		
+		t_type			_type;
 
 		static bool	isWhitespace(char c);
 		static bool	isNumeric(char c);
-		int			countWhitespace(bool reverse);
+		t_type		getFloatError(void) const;
+		int			countWhitespace(bool reverse) const;
 		void		trim(void);
-		bool		isValidNumeric(void) const;
+		t_type		getNumericType(void) const;
 		bool		isChar(void) const;
-		bool		isInt(void) const;
+
+		ostream	&print(ostream &os) const;
+		static ostream	&printUndef(string const &_arg, ostream &os,
+								t_type _type);
+		static ostream	&printNan(string const &_arg, ostream &os,
+								t_type _type);
+		static ostream	&printInf(string const &_arg, ostream &os,
+								t_type _type);
+		static ostream	&printChar(string const &_arg, ostream &os,
+								t_type _type);
+		static ostream	&printInt(string const &_arg, ostream &os,
+								t_type _type);
+		static ostream	&printFloat(string const &_arg, ostream &os,
+								t_type _type);
+		static ostream	&printDouble(string const &_arg, ostream &os,
+								t_type _type);
 	public:
 
 		Convert(void);
@@ -60,7 +77,8 @@ class Convert
 		~Convert(void);
 
 		Convert	&operator=(Convert const &convert);
-		friend ostream	&operator<<(ostream &os, Convert const &convert);
+		friend ostream	&operator<<(ostream &os,
+						Convert const &convert);
 
 };
 

@@ -6,46 +6,29 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:24:18 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/01/31 22:11:15 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/02/02 19:46:32 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "Intern.hpp"
+#include "Convert.hpp"
 #include <string>
 #include <iostream>
 
-using	std::cin;
 using	std::cout;
+using	std::cerr;
 using	std::endl;
 
-int	main()
+int	main(int ac, char **av)
 {
-	Intern	bobby;
-	Bureaucrat president("President", 1);
-	string	form_name;
-	string	target;
-	Form	*form;
-
-	while (!cin.eof())
+	if (ac == 1)
 	{
-		cout << "Type request" << endl;
-		getline(cin, form_name);
-		if (!cin.eof())
-		{
-			cout << "Type target" << endl;
-			getline(cin, target);
-			form = bobby.makeForm(form_name, target);
-			if (form)
-			{
-				president.signForm(*form);
-				president.executeForm(*form);
-				delete form;
-			}
-		}
+		cerr << "One argument is required, exiting" << endl;
+		return (1);
 	}
-	return 0;
+	else if (ac > 2)
+		cerr << "Only one argument is required" << endl;
+
+	Convert	convert(av[1]);
+	cout << convert<< endl;
+	return (0);
 }
