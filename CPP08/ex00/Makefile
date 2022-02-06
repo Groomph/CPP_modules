@@ -6,16 +6,16 @@
 #    By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/19 16:05:34 by rsanchez          #+#    #+#              #
-#    Updated: 2022/02/04 17:17:56 by rsanchez         ###   ########.fr        #
+#    Updated: 2022/02/05 19:36:03 by rsanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Template
+NAME = Containers
 
 CLASS = Class
 
 SOURCES = main.cpp \
-	  $(addprefix $(CLASS)/,        \
+	  $(addprefix $(CLASS)/,	\
 	  Fixed.cpp)
 
 include ../../MakefileTemplate

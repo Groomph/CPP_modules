@@ -6,129 +6,96 @@
 /*   By: rsanchez <rsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:24:18 by rsanchez          #+#    #+#             */
-/*   Updated: 2022/02/03 22:21:48 by rsanchez         ###   ########.fr       */
+/*   Updated: 2022/02/04 19:34:41 by rsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Base.hpp"
-#include "A.hpp"
-#include "B.hpp"
-#include "C.hpp"
-#include <iostream>
+#include "Array.hpp"
+#include "Fixed.hpp"
 #include <string>
-#include <exception>
 #include <cstdlib>
 #include <ctime>
+#include <exception>
 
-using	std::string;
 using	std::cin;
 using	std::cout;
+using	std::cerr;
 using	std::endl;
-using	std::exception;
 
-char static	generated;
-char static	identified;
-
-static Base	*generate(void)
+static void	test_intarray(void)
 {
-	int	i = rand() % 3;
-
-	switch (i)
+	cout << "CREATING ARRAY AND INITIALIZE IT" << endl;
+	Array<int>	arr1(10);
+	for (int i = 0; i < 10; i++)
 	{
-		case 0:
-			generated = 'A';
-			return (new A);
-		case 1:
-			generated = 'B';
-			return (new B);
-		case 2:
-			generated = 'C';
-			return (new C);
-		default:
-			cout << "not supposed to happen" << endl;
-			return (NULL);
+		arr1[i] = rand() % 500;
 	}
+	cout << arr1 << endl;
+	cout << "size: " << arr1.size() << endl;
+	cout << "\nCOPY AND MODIFY THE FIRST ARRAY" << endl;
+	Array<int>	arr2 = arr1;
+	for (int i = 0; i < 10; i++)
+	{
+		arr1[i] = rand() % 500;
+	}
+	cout << "array1 (after modification):" << endl;
+	cout << arr1 << endl;
+	cout << "size: " << arr1.size() << endl;
+	cout << "array2 (copy):" << endl;
+	cout << arr2 << endl;
+	cout << "size: " << arr2.size() << endl;
 }
 
-static void	identify(Base *p)
+static void	test_fixedarray(void)
 {
-	if (dynamic_cast<A*>(p))
+	cout << "\n\nSAME BUT WITH FIXED POINT NUMBERS" << endl;
+	Array<Fixed>	arr1(10);
+	for (int i = 0; i < 10; i++)
 	{
-		identified = 'A';
-		cout << "A class identified by pointer" << endl;
+		arr1[i] = Fixed(rand()/static_cast<float>(rand()));
 	}
-	else if (dynamic_cast<B*>(p))
+	cout << arr1 << endl;
+	cout << "size: " << arr1.size() << endl;
+	cout << "\nCOPY AND MODIFY THE FIRST ARRAY" << endl;
+	Array<Fixed>	arr2 = arr1;
+	for (int i = 0; i < 10; i++)
 	{
-		identified = 'B';
-		cout << "B class identified by pointer" << endl;
+		arr1[i] = Fixed(rand()/static_cast<float>(rand()));
 	}
-	else if (dynamic_cast<C*>(p))
-	{
-		identified = 'C';
-		cout << "C class identified by pointer" << endl;
-	}
+	cout << "array1 (after modification):" << endl;
+	cout << arr1 << endl;
+	cout << "size: " << arr1.size() << endl;
+	cout << "array2 (copy):" << endl;
+	cout << arr2 << endl;
+	cout << "size: " << arr2.size() << endl;
 }
 
-static void	identify(Base &p)
+static void	test_errorarray(void)
 {
+	Array<int>	arr1;
+	cout << "\n\nINIT AN EMPTY ARRAY AND TRY TO REACH AN INDEX" << endl;
+	cout << arr1 << endl;
+	cout << "size: " << arr1.size() << endl;
 	try
 	{
-		A	&tmp = dynamic_cast<A&>(p);
-		(void)tmp;
-		identified = 'A';
-		cout << "A class identified by reference" << endl;
-		return ;
+		arr1[11] = 0;
 	}
 	catch (exception &e)
 	{
-//		cout << "cast to A failed: " << e.what() << endl;
+		cerr << "Exception::" << e.what() << endl;
 	}
-	try
-	{
-		B	&tmp = dynamic_cast<B&>(p);
-		(void)tmp;
-		identified = 'B';
-		cout << "B class identified by reference" << endl;
-		return ;
-	}
-	catch (exception &e)
-	{
-//		cout << "cast to B failed: " << e.what() << endl;
-	}
-	try
-	{
-		C	&tmp = dynamic_cast<C&>(p);
-		(void)tmp;
-		identified = 'C';
-		cout << "C class identified by reference" << endl;
-		return ;
-	}
-	catch (exception &e)
-	{
-//		cout << "cast to C failed: " << e.what() << endl;
-	}
-	cout << "not supposed to happen" << endl;
 }
 
 int	main()
 {
-	Base	*ptr;
-	srand(time(NULL));
 	string	buff;
 
+	srand(time(NULL));
 	while (!cin.eof())
 	{
-		ptr = generate();
-		identify(ptr);
-		if (generated != identified)
-			cout << "Wrong identifying" << endl;
-		identify(*ptr);
-		if (generated != identified)
-			cout << "Wrong identifying" << endl;
-		else
-			cout << "The generated Class was indeed an "
-				<< generated << endl;
-		delete ptr;
+		test_intarray();
+		test_fixedarray();
+		test_errorarray();
 		cout << "\n\nPress enter for another test" << endl;
 		getline(cin, buff);
 	}
